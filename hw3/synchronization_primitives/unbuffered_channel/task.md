@@ -30,3 +30,72 @@
 
 ### Ограничения
 Время выполнения бенчмарка не должно превышать 4 секунд.
+
+Результаты бенчмарков полученные на Mac M1
+```
+Unable to determine clock rate from sysctl: hw.cpufrequency: No such file or directory
+This does not affect benchmark measurements, only the metadata output.
+***WARNING*** Failed to set thread affinity. Estimated CPU frequency may be incorrect.
+2026-03-23T07:26:07+03:00
+Running ./build/unbuffered_channel_benchmarks
+Run on (8 X 24 MHz CPU s)
+CPU Caches:
+  L1 Data 64 KiB
+  L1 Instruction 128 KiB
+  L2 Unified 4096 KiB (x8)
+Load Average: 1.89, 3.74, 6.43
+----------------------------------------------------------------------------------------
+Benchmark                                              Time             CPU   Iterations
+----------------------------------------------------------------------------------------
+Run/2/6/min_time:0.100/process_time/real_time        391 ms          456 ms            1
+Run/4/4/min_time:0.100/process_time/real_time        439 ms          563 ms            1
+Run/6/2/min_time:0.100/process_time/real_time        505 ms          625 ms            1
+```
+
+Результаты бенчмарков полученные на i5-12400f
+```
+2026-03-23T07:29:31+03:00
+Running ./build/unbuffered_channel_benchmarks
+Run on (6 X 2495.99 MHz CPU s)
+CPU Caches:
+  L1 Data 48 KiB (x3)
+  L1 Instruction 32 KiB (x3)
+  L2 Unified 1280 KiB (x3)
+  L3 Unified 18432 KiB (x1)
+Load Average: 0.97, 0.38, 0.13
+----------------------------------------------------------------------------------------
+Benchmark                                              Time             CPU   Iterations
+----------------------------------------------------------------------------------------
+Run/2/4/min_time:0.100/process_time/real_time       2116 ms         2986 ms            1
+Run/3/3/min_time:0.100/process_time/real_time       2832 ms         5066 ms            1
+Run/4/2/min_time:0.100/process_time/real_time       3254 ms         5355 ms            1
+```
+
+Результаты тестирования
+```
+Running main() from /tmp/googletest-20240731-4513-2m6gxg/googletest-1.15.2/googletest/src/gtest_main.cc
+Running main() from /tmp/googletest-20240731-4513-2m6gxg/googletest-1.15.2/googletest/src/gtest_main.cc
+[==========] Running 6 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Correctness
+[ RUN      ] Correctness.Simple
+[       OK ] Correctness.Simple (207 ms)
+[ RUN      ] Correctness.Senders
+[       OK ] Correctness.Senders (204 ms)
+[ RUN      ] Correctness.Receivers
+[       OK ] Correctness.Receivers (209 ms)
+[ RUN      ] Correctness.BigBuf
+[       OK ] Correctness.BigBuf (207 ms)
+[----------] 4 tests from Correctness (828 ms total)
+
+[----------] 2 tests from Block
+[ RUN      ] Block.Sender
+[       OK ] Block.Sender (1209 ms)
+[ RUN      ] Block.Receiver
+[       OK ] Block.Receiver (1212 ms)
+[----------] 2 tests from Block (2422 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 2 test suites ran. (3251 ms total)
+[  PASSED  ] 6 tests.
+```
